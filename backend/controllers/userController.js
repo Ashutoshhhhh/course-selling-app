@@ -73,16 +73,4 @@ const signup=async(req,res)=>{
         return res.status(500).json({message:`There was an error while creating the accound ${err}`});
     }
 }
-
-const userPurchases=async(req,res)=>{
-
-}
-const CoursePurchase=async(req,res)=>{
-
-}
-const courses=async(req,res)=>{
-
-}
-
-
-module.exports={signin,signup,userPurchases,courses,CoursePurchase};
+module.exports={signin,signup};
