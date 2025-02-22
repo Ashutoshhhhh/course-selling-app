@@ -44,8 +44,45 @@ const signin=async(req,res)=>{
     }
 }
 
+const signup=async(req,res)=>{
+    const {email,password}=req.body;
+    const bodySchema=z.object({
+        email:z.string().min(8).max(40).email(),
+        password:z.string().min(8).max(20).refine(val=>{
+            return /[A-Z]/.test(val) && /[a-z]/.test(val) && /[0-9]/.test(val);
+        },{
+            message:'Password must contain at least one uppercase letter, one lowercase letter, one number'
+        })
+    });
+    const parsedSuccess=bodySchema.safeParse({email,password});
+    if(!parsedSuccess.success){
+        return res.status(400).json({message:`There was an error in your credentials`, err:parsedSuccess.error.format()});
+    }
+    const hashedPassword=await bcrypt.hash(password,8);
+    try{
+        await UserModel.create({
+            email:email,
+            password:hashedPassword
+        });
+        return res.status(201).json({message:'Account created successfully'});
+    }
+    catch(err){
+        if(err.code===11000){
+            return res.status(400).json({message:'The user already exsists with the email id '});
+        }
+        return res.status(500).json({message:`There was an error while creating the accound ${err}`});
+    }
+}
+
+const userPurchases=async(req,res)=>{
+
+}
+const CoursePurchase=async(req,res)=>{
+
+}
+const courses=async(req,res)=>{
+
+}
 
 
-
-
-module.exports={signin,signup};
+module.exports={signin,signup,userPurchases,courses,CoursePurchase};
