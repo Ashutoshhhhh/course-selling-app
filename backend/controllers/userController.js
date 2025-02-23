@@ -46,7 +46,7 @@ const signin=async(req,res)=>{
 }
 
 const signup=async(req,res)=>{
-    const {email,password}=req.body;
+    const {email,password,firstName,lastName}=req.body;
     const bodySchema=z.object({
         email:z.string().min(8).max(40).email(),
         password:z.string().min(8).max(20).refine(val=>{

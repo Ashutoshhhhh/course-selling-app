@@ -25,19 +25,26 @@ const adminRoutes=require('./routes/adminRoutes');
 app.use('/admin/api',adminRoutes);
 
 // ✅ Connect to MongoDB with error handling
-mongoose.connect(process.env.MONGO_URI)
-    .then(() => console.log('✅ MongoDB Connected'))
-    .catch(err => {
-        console.error(`❌ MongoDB Connection Error: ${err.message}`);
+
+async function startserver(){
+    try{
+        await mongoose.connect(process.env.MONGO_URI);
+        console.log('mongo connected');
+        const port = process.env.PORT || 5000;
+        app.listen(port, () => console.log(`🚀 Server running on http://localhost:${port}`));
+
+    }
+    catch(err){
+        console.log(`error in connecting to mongo ${err}`);
         process.exit(1);
-    });
+    }
+}
+
+
+
+startserver();
 
 // ✅ Handle Uncaught Exceptions (Prevent Crashes)
-process.on("uncaughtException", (err) => {
-    console.error(`❌ Uncaught Exception: ${err.message}`);
-    process.exit(1);
-});
+
 
 // ✅ Start the Server
-const port = process.env.PORT || 5000;
-app.listen(port, () => console.log(`🚀 Server running on http://localhost:${port}`));
