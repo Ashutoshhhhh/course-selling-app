@@ -3,7 +3,7 @@ const Schema=mongoose.Schema;
 const ObjectId=mongoose.Types.ObjectId;
 
 const CourseSchema=new Schema({
-    title:{type:String,required:true},
+    title:{type:String,required:true,unique:true},
     description:{type:String,required:true},
     price:{type:Number,required:true},
     imageURL:{type:String,required:true},
