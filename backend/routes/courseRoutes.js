@@ -1,8 +1,8 @@
 const auth = require('../middlewares/auth');
 const express = require('express');
 const router = express.Router();
-const { userPurchases, courses, coursePurchase } = require('../controllers/courseController.js');
-router.get('/userPurchases', auth, userPurchases)
-router.post('/Course/Purchase', auth, coursePurchase)
-router.get('/courses', courses);
+const {  courses, deleteCourse,createcourse } = require('../controllers/courseController.js');
+router.delete('/delete/course', auth, deleteCourse)
+router.get('/courses',auth, courses);
+router.post('/createcourse',auth ,createcourse)
 module.exports = router;
