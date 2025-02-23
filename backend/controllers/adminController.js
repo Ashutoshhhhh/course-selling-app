@@ -52,9 +52,11 @@ const SignUp=async(req,res)=>{
             return /[A-Z]/.test(val) && /[a-z]/.test(val) && /[0-9]/.test(val);
         },{
             message:'Password must contain at least one uppercase letter, one lowercase letter, one number'
-        })
+        }),
+        firstName:z.string(),
+        lastName:z.string()
     });
-    const parsedSuccess=bodySchema.safeParse({email,password});
+    const parsedSuccess=bodySchema.safeParse({email,password,firstName,lastName});
     if(!parsedSuccess.success){
         return res.status(400).json({message:`There was an error in your credentials`, err:parsedSuccess.error.format()});
     }
@@ -62,7 +64,9 @@ const SignUp=async(req,res)=>{
     try{
         await AdminModel.create({
             email:email,
-            password:hashedPassword
+            password:hashedPassword,
+            firstName:firstName,
+            lastName:lastName
         });
         return res.status(201).json({message:'Account created successfully'});
     }

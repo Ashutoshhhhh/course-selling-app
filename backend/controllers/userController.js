@@ -8,14 +8,15 @@ if (!JWT_SECRET) {
 }
 
 const signin=async(req,res)=>{
-    const {email,password}=req.body;
+    const {email,password,fistName,lastName}=req.body;
     const bodySchema=z.object({
         email:z.string().min(8).max(50).email(),
         password:z.string().min(8).max(20).refine(val=>{
             return /[A-Z]/.test(val) && /[a-z]/.test(val) && /[0-9]/.test(val) 
         },{
             message:'Password must contain at least one uppercase letter, one lowercase letter, one number'
-        })
+        },),
+        
     }
     );
     const parsedSuccess=bodySchema.safeParse({email,password});
@@ -52,9 +53,11 @@ const signup=async(req,res)=>{
             return /[A-Z]/.test(val) && /[a-z]/.test(val) && /[0-9]/.test(val);
         },{
             message:'Password must contain at least one uppercase letter, one lowercase letter, one number'
-        })
+        }),
+        firstName:z.string(),
+        lastName:z.string()
     });
-    const parsedSuccess=bodySchema.safeParse({email,password});
+    const parsedSuccess=bodySchema.safeParse({email,password,firstName,lastName});
     if(!parsedSuccess.success){
         return res.status(400).json({message:`There was an error in your credentials`, err:parsedSuccess.error.format()});
     }
@@ -62,7 +65,9 @@ const signup=async(req,res)=>{
     try{
         await UserModel.create({
             email:email,
-            password:hashedPassword
+            password:hashedPassword,
+            firstName:firstName,
+            lastName:lastName
         });
         return res.status(201).json({message:'Account created successfully'});
     }
