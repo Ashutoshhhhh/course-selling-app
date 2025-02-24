@@ -47,27 +47,35 @@ const courses=async(req,res)=>{
 
 }
 const createcourse=async(req,res)=>{
+    console.log('start');
     try{
+        console.log('start1');
         if(!req.userId){
             return res.status(403).json({message:'Not authorized'});
         }
+        console.log('start2');
         const creatorId=req.userId;
+        console.log('start3');
         let {title,description,price,imageURL}=req.body;
+        console.log('start4');
         price=parseFloat(price);
+        console.log('start5');
         const bodySchema = z.object({
-            title: z.string().min(3).max(100).string(),
+            title: z.string().min(3).max(100),
             description: z.string().min(10).max(500),
             price: z.number().min(0),
-            imageURL: z.string().url(),
+            imageURL: z.string(),
         });
+        console.log('start6');
         const parsedSuccess = bodySchema.safeParse({ title, description, price, imageURL });
-
+        console.log('befor success');
         if (!parsedSuccess.success) {
             return res.status(400).json({
                 message: "There was an error with the course information",
                 error: parsedSuccess.error.format(),
             });
         }
+        console.log('after success');
         const newCourse= await CourseModel.create({
             title,
             description,
@@ -78,7 +86,7 @@ const createcourse=async(req,res)=>{
         return res.status(201).json({message:'The course was added ',course:newCourse});
     }
     catch(err){
-        return res.status(500).json({message:'There was error creating the course ',error:err});s
+        return res.status(500).json({message:'There was error creating the course ',error:err});
     }
 
     
