@@ -82,4 +82,4 @@ const SignUp=async(req,res)=>{
 
 
 
-module.exports={SignIn,SignUp,createCourse};
+module.exports={SignIn,SignUp};

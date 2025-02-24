@@ -7,7 +7,7 @@ async function auth(req,res,next) {
     }
     const token=authorizationToken.split(" ")[1];
     try{
-        const decoded=await jwt.verify(token,JWT_SECRET);
+        const decoded= jwt.verify(token,JWT_SECRET);
         req.userId=decoded.id;
         next();
     }
