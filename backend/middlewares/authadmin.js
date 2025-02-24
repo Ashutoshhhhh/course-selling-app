@@ -1,6 +1,6 @@
 const jwt = require('jsonwebtoken');
-const JWT_SECRET=process.env.JWT_SECRET_USER;
-async function auth(req,res,next) {
+const JWT_SECRET=process.env.JWT_SECRET_ADMIN;
+async function authAdmin(req,res,next) {
     const authorizationToken=req.headers.authorization;
     if(!authorizationToken || ! authorizationToken.startsWith('Bearer ')){
         return res.status(400).json({message:'The token you send is invalid'});
@@ -17,4 +17,4 @@ async function auth(req,res,next) {
     }
     
 }
-module.exports=auth;
+module.exports=authAdmin;

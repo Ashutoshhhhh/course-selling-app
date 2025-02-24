@@ -2,7 +2,7 @@ const AdminModel=require('../models/Admin');
 const bcrypt = require('bcrypt');
 const {z}=require('zod');
 const jwt = require('jsonwebtoken');
-const JWT_SECRET=process.env.JWT_SECRET;
+const JWT_SECRET=process.env.JWT_SECRET_ADMIN;
 if (!JWT_SECRET) {
     throw new Error("Missing JWT_SECRET in environment variables");
 }
@@ -78,9 +78,7 @@ const SignUp=async(req,res)=>{
     }
 }
 
-const createCourse=()=>{
 
-}
 
 
 

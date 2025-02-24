@@ -58,7 +58,7 @@ const createcourse=async(req,res)=>{
         let {title,description,price,imageURL}=req.body;
         price=parseFloat(price);
         const bodySchema = z.object({
-            title: z.string().min(3).max(100),
+            title: z.string().min(3).max(100).string(),
             description: z.string().min(10).max(500),
             price: z.number().min(0),
             imageURL: z.string().url(),

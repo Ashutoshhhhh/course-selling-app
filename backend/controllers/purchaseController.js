@@ -1,8 +1,8 @@
 const PurchaseModel=require('../models/Purchases');
 const CourseModel=require('../models/Course');
 const {z}=require('zod');
-const { z } = require('zod');
-const { courses } = require('./courseController');
+
+
 
 const userPurchases= async(req,res)=>{
     try{

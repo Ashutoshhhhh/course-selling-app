@@ -1,9 +1,11 @@
 const express=require('express');
 const router=express.Router();
-const auth = require('../middlewares/auth');
-const {SignIn,SignUp,createCourse}=require('../controllers/adminController.js');
-
+const authAdmin = require('../middlewares/authadmin.js');
+const {SignIn,SignUp}=require('../controllers/adminController.js');
+const {courses,createcourse,deleteCourse} = require('../controllers/courseController.js');
 router.post('/signin',SignIn);
 router.post('/signup',SignUp);
-router.post('/createcourse',auth,createCourse);
+router.post('/createcourse',authAdmin,createcourse);
+router.delete('/delete/course', authAdmin, deleteCourse);
+router.get('/courses',authAdmin, courses);
 module.exports=router;

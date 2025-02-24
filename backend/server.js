@@ -19,12 +19,9 @@ app.use(cors());
 // ✅ Import Routes
 const userRoutes = require('./routes/userRoutes');
 app.use('/user/api', userRoutes);
-const courseRoutes=require('./routes/courseRoutes');
-app.use('/course/api',courseRoutes);
 const adminRoutes=require('./routes/adminRoutes');
 app.use('/admin/api',adminRoutes);
-const purchaseRoutes=require('./routes/purchaseRoutes');
-app.use('/purchase/api',purchaseRoutes);
+
 
 // ✅ Connect to MongoDB with error handling
 

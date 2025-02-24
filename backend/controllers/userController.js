@@ -2,7 +2,7 @@ const UserModel=require('../models/User');
 const bcrypt = require('bcrypt');
 const {z}=require('zod');
 const jwt = require('jsonwebtoken');
-const JWT_SECRET=process.env.JWT_SECRET;
+const JWT_SECRET=process.env.JWT_SECRET_USER;
 if (!JWT_SECRET) {
     throw new Error("Missing JWT_SECRET in environment variables");
 }
