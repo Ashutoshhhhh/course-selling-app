@@ -4,7 +4,7 @@ const mongoose = require('mongoose');
 const dotenv = require('dotenv');
 
 // ✅ Load environment variables first
-dotenv.config();
+dotenv.config();//dotenv is zero dependency file 
 
 // ✅ Check if MONGO_URI is defined
 if (!process.env.MONGO_URI) {

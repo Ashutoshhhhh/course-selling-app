@@ -10,16 +10,11 @@ const userPurchases= async(req,res)=>{
         if(!userId){
             return res.status(400).json({message:'No user found'});
         }
-        const userCoursesId=await PurchaseModel.find({userId});
-        
-        if(userCoursesId.length==0){
-            return res.status(200).json({message:'The user dont have any purchased course yet'});
+       
+        const coursesInfo = await PurchaseModel.find({ userId }).populate('courseId');
+        if(coursesInfo.length===0){
+            return res.status(200).json({message:"YOu dont have any purchases course"});
         }
-        const coursesInfo=await Promise.all(
-            userCoursesId.map(async(courses)=>{
-                return await CourseModel.findById(courses.courseId)
-            })
-        );
         return res.status(200).json({
             message: 'User purchased courses retrieved successfully',
             courses: coursesInfo,
